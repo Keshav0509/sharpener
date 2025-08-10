@@ -1,0 +1,26 @@
+/*
+You are given a form in the HTML file. You task is to:
+Use form element's tag name to give it a padding of 25px and change its background color to pink.
+Set id = "name" for the input element of type "text" and link it to the label element using "for" attribute. 
+Use id of the input element to set its height to 25px.
+Use "for" attribute of the label element to change its font style to italic.
+Give both the buttons a class name of "btn", and then use this class name to set 25px as their top margin, and to give them a padding of 10px on all sides.
+*/
+
+form {
+  padding: 25px;
+  background-color: pink;
+}
+
+label[for="name"] {
+  font-style: italic;
+}
+
+#name {
+  height: 25px;
+}
+
+.btn {
+  margin-top: 25px;
+  padding: 10px;
+}
