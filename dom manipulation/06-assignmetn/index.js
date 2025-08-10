@@ -5,3 +5,22 @@
 4. On this paragraph tag set an id of "fruits-total".
 */
 
+// ans 1;
+const subHeading = document.createElement('h3');
+const subHeadingText = document.createTextNode('Buy high quality organic fruits online');
+subHeading.appendChild(subHeadingText);
+const divs = document.getElementsByTagName('div');
+const firstDiv = divs[0];
+const secondDiv = divs[1];
+firstDiv.appendChild(subHeading);
+// ans 2;
+subHeading.style.fontStyle = 'italic';
+// ans 3;
+const fruitsList = document.querySelector('.fruits');
+const para = document.createElement('p');
+const paraText = document.createTextNode('Total fruits: 4');
+para.appendChild(paraText);
+secondDiv.insertBefore(para, fruitsList);
+// ans 4;
+para.id = 'fruits-total';
+
