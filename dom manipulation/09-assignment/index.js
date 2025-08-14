@@ -2,6 +2,8 @@
 1. In each "li" after the delete button add an edit button with class 'edit-btn'.
 2. Now, implement the add and delete functionality just the way it is done in the video. There is only one difference that now the new 'li' element that you will create will have two buttons (delete and edit) instead of one button.
 */
+
+// add functionality to list
 function addButtons(li) {
   const editBtn = document.createElement('button');
   editBtn.classList.add('edit-btn');
@@ -14,9 +16,11 @@ function addButtons(li) {
   li.appendChild(deleteBtn);
 }
 
+// variables
 const form = document.querySelector('form');
 const fruits = document.querySelector('.fruits');
 
+// add a fruit to the list
 form.addEventListener('submit', (event) => {
   event.preventDefault();
 
@@ -31,16 +35,11 @@ form.addEventListener('submit', (event) => {
   fruits.appendChild(li);
 });
 
+// remove a fruit from list
 fruits.addEventListener('click', (event) => {
   if(event.target.classList.contains('delete-btn')){
     const removeFruit = event.target.parentElement;
     fruits.removeChild(removeFruit);
-  }
-
-  if(event.target.classList.contains('edit-btn')){
-    const inputEl = document.querySelector('#fruit-to-add');
-    const fruitName = event.target;
-    console.log(fruitName);
   }
 });
 
