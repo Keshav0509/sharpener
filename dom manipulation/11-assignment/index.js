@@ -1,9 +1,16 @@
-import 
-{ 
-  getFromLocalStorage, 
-  setToLocalStorage, 
-  User 
-} from "./utils.js";
+class User {
+  constructor(username, email, phone) {
+    this.username = username;
+    this.email = email;
+    this.phone = phone;
+  }
+}
+function setToLocalStorage(key, val){
+  localStorage.setItem(key, JSON.stringify(val));
+}
+function getFromLocalStorage(key) {
+  return JSON.parse(localStorage.getItem(key)) || [];
+}
 
 const users = [];
 const form = document.querySelector('form');
