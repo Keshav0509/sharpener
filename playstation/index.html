@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aviator Predictor</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script> <!-- Optional, can remove -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-6xl flex flex-row">
+        <!-- Left Column -->
+        <div class="w-2/3 pr-4">
+            <h1 class="text-2xl font-bold text-center mb-4">Aviator Predictor (AAPlay8)</h1>
+            
+            <!-- Input Section -->
+            <div class="mb-4">
+                <label for="multiplierInput" class="block text-sm font-medium text-gray-700">Enter Multiplier (e.g., 1.5):</label>
+                <input type="number" step="0.1" id="multiplierInput" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm p-2" placeholder="Enter multiplier">
+                <button onclick="addMultiplier()" class="mt-2 w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600">Add Multiplier</button>
+            </div>
+            
+            <!-- Analysis Section -->
+            <div id="analysis" class="mb-4 p-4 bg-gray-50 rounded-md">
+                <h2 class="text-lg font-semibold">Analysis</h2>
+                <p id="avgMultiplier">Average Multiplier: -</p>
+                <p id="maxMultiplier">Max Multiplier: -</p>
+                <p id="minMultiplier">Min Multiplier: -</p>
+                <p id="highMultiplierFreq">High Multiplier (>=2.0x) Frequency: -</p>
+            </div>
+            
+            <!-- Prediction Result -->
+            <div id="prediction" class="mb-4 p-4 bg-gray-50 rounded-md hidden">
+                <h2 class="text-lg font-semibold">Prediction</h2>
+                <p id="predictedMultiplier" style="background-color: yellow;">Predicted Next Multiplier: -</p>
+            </div>
+        </div>
+        
+        <!-- Right Column: Recent Data List -->
+        <div class="w-1/3 pl-4">
+            <h2 class="text-lg font-semibold mb-2">Recent Multipliers</h2>
+            <div class="bg-gray-50 p-4 rounded-md max-h-[600px] overflow-y-auto">
+                <ul id="recentMultipliers" class="list-disc pl-5"></ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Load historical multipliers from LocalStorage
+        let historicalMultipliers = JSON.parse(localStorage.getItem('historicalMultipliers'));
+        if (!historicalMultipliers || !Array.isArray(historicalMultipliers)) {
+            // console.log("No valid data in LocalStorage, using default data.");
+            historicalMultipliers = [
+                { value: 1.5 },
+                { value: 2.3 },
+                { value: 1.8 },
+                { value: 10.2 },
+                { value: 3.4 },
+                { value: 1.2 },
+                { value: 5.6 },
+                { value: 2.1 },
+                { value: 1.1 },
+                { value: 4.8 }
+            ];
+        } else {
+            // Validate and clean up existing data
+            historicalMultipliers = historicalMultipliers.map(item => {
+                if (typeof item !== 'object' || item.value === undefined) {
+                    // console.warn("Invalid item in historicalMultipliers, skipping:", item);
+                    return { value: 1.5 }; // Default value for invalid items
+                }
+                return item;
+            });
+        }
+        // console.log("Initial historicalMultipliers:", historicalMultipliers);
+
+        // Update recent multipliers list
+        function updateRecentMultipliers() {
+            const recentList = document.getElementById('recentMultipliers');
+            if (!recentList) {
+                // console.error("recentMultipliers element not found!");
+                return;
+            }
+            // console.log("Updating recent multipliers list...");
+            recentList.innerHTML = '';
+            const recent = historicalMultipliers.slice(-10); // Show last 10 multipliers
+            if (recent.length === 0) {
+                // console.log("No recent multipliers to display.");
+                return;
+            }
+            recent.forEach((item, index) => {
+                const li = document.createElement('li');
+                const roundNumber = historicalMultipliers.length - recent.length + index + 1;
+                const value = (item.value !== undefined) ? item.value : 1.5; // Fallback value
+                li.textContent = `Round ${roundNumber}: ${value.toFixed(2)}x`;
+                recentList.appendChild(li);
+            });
+            // console.log("Recent multipliers updated:", recent);
+        }
+
+        // Analyze multipliers
+        function analyzeMultipliers() {
+            if (historicalMultipliers.length === 0) {
+                document.getElementById('avgMultiplier').textContent = 'Average Multiplier: -';
+                document.getElementById('maxMultiplier').textContent = 'Max Multiplier: -';
+                document.getElementById('minMultiplier').textContent = 'Min Multiplier: -';
+                document.getElementById('highMultiplierFreq').textContent = 'High Multiplier (>=2.0x) Frequency: -';
+                return;
+            }
+
+            const values = historicalMultipliers.map(item => (item.value !== undefined) ? item.value : 1.5);
+            const avg = values.reduce((a, b) => a + b, 0) / values.length;
+            const max = Math.max(...values);
+            const min = Math.min(...values);
+            const highFreq = (values.filter(x => x >= 2.0).length / values.length * 100).toFixed(2);
+
+            document.getElementById('avgMultiplier').textContent = `Average Multiplier: ${avg.toFixed(2)}x`;
+            document.getElementById('maxMultiplier').textContent = `Max Multiplier: ${max.toFixed(2)}x`;
+            document.getElementById('minMultiplier').textContent = `Min Multiplier: ${min.toFixed(2)}x`;
+            document.getElementById('highMultiplierFreq').textContent = `High Multiplier (>=2.0x) Frequency: ${highFreq}%`;
+        }
+
+        // Predict next multiplier
+        function predictNext() {
+            // console.log("Predicting next multiplier...");
+            const recent = historicalMultipliers.slice(-5).map(item => (item.value !== undefined) ? item.value : 1.5);
+            if (recent.length === 0) {
+                // console.log("No recent data available for prediction, using default value.");
+                document.getElementById('predictedMultiplier').textContent = "Predicted Next Multiplier: 1.50x";
+                document.getElementById('prediction').classList.remove('hidden');
+                return;
+            }
+            const avgRecent = recent.reduce((a, b) => a + b, 0) / recent.length;
+            const variation = (Math.random() - 0.5);
+            const predicted = Math.max(1.1, avgRecent + variation).toFixed(2);
+
+            const predictionDiv = document.getElementById('prediction');
+            if (predictionDiv) {
+                predictionDiv.classList.remove('hidden');
+                document.getElementById('predictedMultiplier').textContent = `Predicted Next Multiplier: ${predicted}x`;
+                // console.log(`Predicted value: ${predicted}x`);
+            } else {
+                // console.error("Prediction div not found!");
+            }
+        }
+
+        // Add new multiplier
+        function addMultiplier() {
+            const input = document.getElementById('multiplierInput');
+            const value = parseFloat(input.value);
+            if (!isNaN(value) && value >= 1.0) {
+                historicalMultipliers.push({ value: value });
+                localStorage.setItem('historicalMultipliers', JSON.stringify(historicalMultipliers));
+                input.value = '';
+                analyzeMultipliers();
+                updateRecentMultipliers();
+                predictNext(); // Automatically predict after adding
+                // console.log("Added multiplier:", value);
+            } else {
+                input.value = ''; // Clear invalid input
+                // console.log("Invalid input ignored:", value);
+            }
+        }
+
+        // Initial setup
+        analyzeMultipliers();
+        updateRecentMultipliers();
+    </script>
+</body>
+</html>
