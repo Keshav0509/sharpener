@@ -1,0 +1,154 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css" />
+  <title>call, apply, and bind</title>
+</head>
+<body class="assignment05" style="background-color: lightblue;">
+  <h1>JavaScript Assignment 05</h1>
+  <h2>call, apply, and bind</h2>
+  <p>
+    In this assignment, we will explore the concepts of call, apply, and bind in JavaScript.
+  </p>
+  <div>
+    <h3><strong>call</strong></h3>
+    <p>
+      <div>
+        The <code>call()</code> method allows you to call a function with a specified <code>this</code> keyword, value and arguments provided individually.
+      </div>
+      <div>
+        example:
+        <code>
+          <pre>
+            function greet(greeting) {
+              return `${greeting}, ${this.name}`;
+            }
+  
+            const person = { name: 'Alice' };
+            console.log(greet.call(person, 'Hello')); // Output: Hello, Alice
+          </pre>
+        </code>
+      </div>
+    </p>
+    <h3><strong>apply</strong></h3>
+    <p>
+      <div>
+        The <code>apply()</code> method is similar to <code>call()</code>, but it takes an array of arguments instead of individual arguments.
+      </div>
+      <div>
+        example:
+        <code>
+          <pre>
+            function greet(greeting) {
+              return `${greeting}, ${this.name}`;
+            }
+
+            const person = { name: 'Alice' };
+            console.log(greet.apply(person, ['Hello'])); // Output: Hello, Alice
+          </pre>
+        </code>
+      </div>
+    </p>
+    <h3><strong>bind</strong></h3>
+    <p>
+      <div>
+        The <code>bind()</code> method creates a new function that, when called, has its <code>this</code> keyword set to the provided value, with a given sequence of arguments preceding any provided when the new function is called.
+      </div>
+      <div>
+        example:
+        <code>
+          <pre>
+            function greet(greeting) {
+              return `${greeting}, ${this.name}`;
+            }
+
+            const person = { name: 'Alice' };
+            const greetAlice = greet.bind(person);
+            console.log(greetAlice('Hello')); // Output: Hello, Alice
+          </pre>
+        </code>
+      </div>
+    </p>
+  </div>
+</body>
+<script src="script.js"></script>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css" />
+  <title>call, apply, and bind</title>
+</head>
+<body class="assignment05 light-mode">
+  <h1 class="main-title">JavaScript Assignment 05</h1>
+  <h2 class="sub-title">call, apply, and bind</h2>
+  <p class="intro-text">
+    In this assignment, we will explore the concepts of call, apply, and bind in JavaScript.
+  </p>
+  <div class="content-container">
+    <h3 class="section-title"><strong>call</strong></h3>
+    <p class="section-text">
+      <div class="example-block">
+        The <code class="code-inline">call()</code> method allows you to call a function with a specified <code class="code-inline">this</code> keyword, value and arguments provided individually.
+      </div>
+      <div class="example-code">
+        example:
+        <code class="code-block">
+          <pre class="code-pre">function greet(greeting) {
+            return `${greeting}, ${this.name}`;
+          }
+
+          const person = { name: 'Alice' };
+          console.log(greet.call(person, 'Hello')); // Output: Hello, Alice
+          </pre>
+        </code>
+      </div>
+    </p>
+    <h3 class="section-title"><strong>apply</strong></h3>
+    <p class="section-text">
+      <div class="example-block">
+        The <code class="code-inline">apply()</code> method is similar to <code class="code-inline">call()</code>, but it takes an array of arguments instead of individual arguments.
+      </div>
+      <div class="example-code">
+        example:
+        <code class="code-block">
+          <pre class="code-pre">function greet(greeting) {
+            return `${greeting}, ${this.name}`;
+          }
+
+          const person = { name: 'Alice' };
+          console.log(greet.apply(person, ['Hello'])); // Output: Hello, Alice
+          </pre>
+        </code>
+      </div>
+    </p>
+    <h3 class="section-title"><strong>bind</strong></h3>
+    <p class="section-text">
+      <div class="example-block">
+        The <code class="code-inline">bind()</code> method creates a new function that, when called, has its <code class="code-inline">this</code> keyword set to the provided value, with a given sequence of arguments preceding any provided when the new function is called.
+      </div>
+      <div class="example-code">
+        example:
+        <code class="code-block">
+          <pre class="code-pre">function greet(greeting) {
+            return `${greeting}, ${this.name}`;
+          }
+
+          const person = { name: 'Alice' };
+          const greetAlice = greet.bind(person);
+          console.log(greetAlice('Hello')); // Output: Hello, Alice
+          </pre>
+        </code>
+      </div>
+    </p>
+  </div>
+  <!-- <button id="mode-toggle" class="mode-toggle-btn">Toggle Dark Mode</button> -->
+  <button id="mode-toggle" class="mode-toggle-btn">☀</button>
+</body>
+<script src="script.js"></script>
+</html>
