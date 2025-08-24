@@ -1,0 +1,140 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css" />
+  <title>JavaScript Functions</title>
+</head>
+<body class="assignment06 light-mode">
+  <header class="header">
+    <div class="title-container">
+      <h1 class="main-title">JavaScript Assignment 06</h1>
+      <h2 class="sub-title">The Functions</h2>
+    </div>
+    <button id="mode-toggle" class="mode-toggle-btn">☀</button>
+  </header>
+  <main>
+    <div>
+      <h3><strong>Functions statement</strong></h3>
+      <div>
+        <p>Function statement: A function declaration that defines a named function.</p>
+        <code>
+          <pre>
+            function myFunction() {
+              console.log("Hello, World!");
+            };
+            myFunction(); // output: Hello, World!
+          </pre>
+        </code>
+      </div>
+    </div>
+    <div>
+      <h3><strong>Anonymous Functions</strong></h3>
+      <div>
+        <p>
+          Anonymous function: A function without a name. Anonymous functions do not have their own identity. If you declare a function without a name, you cannot call it later and it will give the syntax error because a function statement requires a name.
+        </p>
+        <code>
+          <pre>
+            function() {
+              console.log("Hello, World!");
+            };
+            // output: Uncaught SyntaxError: Function statements require a function name.
+          </pre>
+        </code>
+      </div>
+    </div>
+    <div>
+      <h3><strong>Functions Expression</strong></h3>
+      <div>
+        <p>
+          Function expression: A function that is assigned to a variable. Function expressions can be anonymous or named.
+        </p>
+        <code>
+          <pre>
+            const myFunction = function() {
+              console.log("Hello, World!");
+            };
+            myFunction(); // output: Hello, World!
+          </pre>
+        </code>
+      </div>
+    </div>
+    <div>
+      <h3><strong>Named Functions Expression</strong></h3>
+      <div>
+        <p>
+          Named function expression: A function that is assigned to a variable and has a name. Named function expressions can be called later using their variable name but it can't be called using the function name. Function name is not accessible outside the function body but it can be used within the function body.
+        </p>
+        <code>
+          <pre>
+            const myFunction = function myNamedFunction() {
+              console.log("Hello, World!");
+            };
+            myFunction(); // output: Hello, World!
+            myNamedFunction(); // output: Uncaught ReferenceError: myNamedFunction is not defined.
+          </pre>
+        </code>
+      </div>
+    </div>
+    <div>
+      <h3>Difference between Parameter and Argument</h3>
+      <div>
+        <div>
+          <p>Parameter: A variable in a function definition. It is a placeholder for the value that will be passed to the function when it is called.</p>
+          <p>Argument: The actual value that is passed to the function when it is called.</p>
+        </div>
+        <code>
+          <pre>
+            function myFunction(param1, param2) {
+              console.log(param1, param2);
+            }
+            myFunction("Hello", "World"); // output: Hello World
+          </pre>
+        </code>
+        <p>
+          <span>Note:</span> when the function is defined, param1 and param2 are parameters. when the function is called, "Hello" and "World" are arguments.
+        </p>
+      </div>
+    </div>
+    <div>
+      <h3><strong>First Class Functions</strong></h3>
+      <div>
+        <p>
+          First-class functions: In JavaScript, functions are treated as first-class citizens. This means that functions can be assigned to variables, passed as arguments to other functions, and returned from other functions.
+        </p>
+        <code>
+          <pre>
+            // example 1:
+            function myFunction(param1) {
+              console.log(param1);
+            }
+            myFunction(function() {
+              console.log("Hello, World!");
+            }); // output: [Function (anonymous)]
+
+            // example 2:
+            function myFunction(param1) {
+              return param1;
+            }
+            myFunction(function(){
+              console.log("Hello, World!");
+            }); // output: [Function (anonymous)]
+
+            // example 3:
+            function myFunction(param1) {
+              return param1;
+            }
+            function anotherFunction() {
+              console.log("Hello, World!");
+            }
+            myFunction(anotherFunction); // output: Hello, World!
+          </pre>
+        </code>
+      </div>
+    </div>
+  </main>
+</body>
+<script src="script.js"></script>
+</html> -->
