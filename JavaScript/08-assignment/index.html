@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Currying In JavaScript</title>
+</head>
+<body>
+  <header>
+    <h1>Currying In JavaScript</h1>
+  </header>
+  <main>
+    <section>
+      <h2>What is Currying?</h2>
+      <p>Currying is a functional programming technique...</p>
+    </section>
+    <code>
+      <pre>
+class Student{
+  constructor(name,age,marks){
+    this.name=name;
+    this.age=age;
+    this.marks=marks;   
+  }
+
+  setPlacementAge(minAge) {
+    return (minMarks) => this.marks >= minMarks && this.age >= minAge;
+  }
+}
+
+function createNewStudents(name, age, marks){
+  const Riya = new Student(name, age, marks);
+  console.log(Riya.setPlacementAge(18)(40))
+}
+createNewStudents('Riya', 18, 41); // output: true;
+      </pre>
+    </code>
+  </main>
+  <footer>
+    <p>&copy; 2023 Currying In JavaScript</p>
+  </footer>
+</body>
+</html>

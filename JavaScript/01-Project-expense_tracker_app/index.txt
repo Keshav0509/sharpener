@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->
+  <title>Expense Tracker App</title>
+</head>
+<body>
+  <header>
+    <h1>Expense Tracker</h1>
+  </header>
+  <main>
+    <section class="container">
+      <form id="expense-form" novalidate>
+        <div>
+          <div class="form-floating">
+            <input type="text" id="description" class="form-control" placeholder="Expense description" required>
+            <label for="description" class="form-label">Expense Description</label>
+          </div>
+          <!-- <div class="input-group-text">$</div> -->
+          <div class="form-floating">
+            <!-- <div class="input-group mb-3"> -->
+              <input type="number" id="amount" class="form-control" placeholder="Amount" required>
+            <!-- </div> -->
+            <label for="amount" class="form-label">Amount</label>
+          </div>
+          <label for="category" class="form-label">Category</label>
+          <!-- <div class="form-floating"> -->
+            <select name="category" id="category" class="form-select-sm" required>
+              <option value="">Select Category</option>
+              <option value="utilities">Utilities</option>
+              <option value="groceries">Groceries</option>
+              <option value="transportation">Transportation</option>
+              <option value="entertainment">Entertainment</option>
+            </select>
+          <!-- </div> -->
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add Expense</button>
+      </form>
+    </section>
+    <section class="container">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Description</th>
+              <th>Amount</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="expense-list" class="">
+            <tr>
+              <td>Electricity</td>
+              <td>$100</td>
+              <td>
+                <button class="btn btn-danger btn-sm">Delete</button>
+                <button class="btn btn-warning btn-sm">Edit</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Water</td>
+              <td>$50</td>
+              <td>
+                <button class="btn btn-danger btn-sm">Delete</button>
+                <button class="btn btn-warning btn-sm">Edit</button>
+              </td>
+            <tr>
+              <td>Gas</td>
+              <td>$75</td>
+              <td>
+                <button class="btn btn-danger btn-sm">Delete</button>
+                <button class="btn btn-warning btn-sm">Edit</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Internet</td>
+              <td>$60</td>
+              <td>
+                <button class="btn btn-danger btn-sm">Delete</button>
+                <button class="btn btn-warning btn-sm">Edit</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Vegetables</td>
+              <td>$40</td>
+              <td>
+                <button class="btn btn-danger btn-sm">Delete</button>
+                <button class="btn btn-warning btn-sm">Edit</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Rice</td>
+              <td>$40</td>
+              <td>
+                <button class="btn btn-danger btn-sm">Delete</button>
+                <button class="btn btn-warning btn-sm">Edit</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Laptop</td>
+              <td>$1000</td>
+              <td>
+                <button class="btn btn-danger btn-sm">Delete</button>
+                <button class="btn btn-warning btn-sm">Edit</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <footer></footer>
+
+</body>
+<script src="script.js"></script>
+</html>
