@@ -60,7 +60,7 @@ function addActionButtons(tr,  expense_obj){
 
   const editBtn = document.createElement('button');
   // editBtn.classList.add('btn btn-warning btn-sm');
-  editBtn.className = 'btn btn-primary btn-sm';
+  editBtn.className = 'btn btn-primary btn-sm me-2';
   editBtn.dataset.editId = expense_obj.id;
   editBtn.textContent = 'Edit';
   editBtn.addEventListener('click', () => updateExpense(expense_obj));

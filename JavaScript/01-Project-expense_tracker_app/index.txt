@@ -114,6 +114,114 @@
   </main>
   <footer></footer>
 
+  <script type="module">
+      
+    // import { Expense, getFromLocalStorage, setToLocalStorage } from "./utils.js";
+
+    // const key = 'expenses';
+    // let expenses = getFromLocalStorage(key) || [];
+
+    // document.addEventListener('DOMContentLoaded', initialize);
+    // const form = document.querySelector('form');
+    // const tbody = document.querySelector('tbody');
+
+    // function initialize() {
+    //   expenses.forEach(displayExpense);
+    //   sessionStorage.removeItem('editId');
+    // }
+
+    // form.addEventListener('submit', (e) => {
+    //   e.preventDefault();
+
+    //   if (!form.checkValidity()) {
+    //     alert('Form is not filled');
+    //     form.classList.add('was-validated');
+    //     return;
+    //   }
+
+    //   form.classList.remove('was-validated');
+
+    //   const description = form.querySelector('#description').value;
+    //   const amount = Number(form.querySelector('#amount').value);
+    //   const category = form.querySelector('#category').value;
+    //   const expense = new Expense(description, amount, category);
+    //   const editId = sessionStorage.getItem('editId');
+
+    //   if (!editId) {
+    //     expenses.push(expense);
+    //     displayExpense(expense);
+    //   } else {
+    //     updateExpenseInList(editId, expense);
+    //   }
+
+    //   changeSubmitBtn(false);
+    //   setToLocalStorage(key, expenses);
+    //   form.reset();
+    // });
+
+    // function displayExpense(expense) {
+    //   const tr = document.createElement('tr');
+    //   tr.id = expense.id;
+    //   tr.innerHTML = `
+    //     <td>${expense.description}</td>
+    //     <td>$${expense.amount}</td>
+    //     <td></td>
+    //   `;
+    //   addActionButtons(tr, expense);
+    //   tbody.appendChild(tr);
+    // }
+
+    // function addActionButtons(tr, expense) {
+    //   const td = tr.querySelector('td:last-child');
+    //   const editBtn = document.createElement('button');
+    //   editBtn.className = 'btn btn-primary btn-sm me-2';
+    //   editBtn.dataset.editId = expense.id;
+    //   editBtn.textContent = 'Edit';
+    //   editBtn.addEventListener('click', () => populateForm(expense));
+
+    //   const deleteBtn = document.createElement('button');
+    //   deleteBtn.className = 'btn btn-danger btn-sm';
+    //   deleteBtn.dataset.deleteId = expense.id;
+    //   deleteBtn.textContent = 'Delete';
+    //   deleteBtn.addEventListener('click', () => deleteExpense(expense.id, tr));
+
+    //   td.appendChild(editBtn);
+    //   td.appendChild(deleteBtn);
+    // }
+
+    // function deleteExpense(id, tr) {
+    //   tr.remove();
+    //   expenses = expenses.filter(expense => expense.id !== id);
+    //   setToLocalStorage(key, expenses);
+    // }
+
+    // function populateForm(expense) {
+    //   form.querySelector('#description').value = expense.description;
+    //   form.querySelector('#amount').value = expense.amount;
+    //   form.querySelector('#category').value = expense.category;
+    //   sessionStorage.setItem('editId', expense.id);
+    //   changeSubmitBtn(true);
+    // }
+
+    // function updateExpenseInList(editId, updatedExpense) {
+    //   const index = expenses.findIndex(expense => expense.id === editId);
+    //   if (index !== -1) {
+    //     expenses[index] = updatedExpense;
+    //     const tr = document.getElementById(editId);
+    //     tr.innerHTML = `
+    //       <td>${updatedExpense.description}</td>
+    //       <td>$${updatedExpense.amount}</td>
+    //       <td></td>
+    //     `;
+    //     addActionButtons(tr, updatedExpense);
+    //   }
+    //   sessionStorage.removeItem('editId');
+    // }
+
+    // function changeSubmitBtn(isUpdate) {
+    //   const submitBtn = form.querySelector('button[type=submit]');
+    //   submitBtn.textContent = isUpdate ? 'Update' : 'Submit';
+    // }
+  </script>
 </body>
-<script src="script.js"></script>
 </html>
