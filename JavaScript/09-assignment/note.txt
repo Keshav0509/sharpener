@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Promises and Async/Await</title>
+</head>
+<body class="page light-mode">
+  <div class="container">
+    <header class="main-header">
+      <h1 class="main-title">Promises and Async/Await</h1>
+    </header>
+    <main class="main-content">
+      <section class="section">
+        <header class="section-header">
+          <h2 class="section-subtitle">Understanding Promises</h2>
+          <p class="section-description">Promises are a way to handle asynchronous operations in JavaScript.</p>
+        </header>
+        <div class="topic">
+          <h3 class="topic-title">What is a Promise?</h3>
+          <p class="topic-text">A promise is an object that represents the eventual completion (or failure) of an asynchronous operation and its resulting value.</p>
+        </div>
+        <div class="topic">
+          <h3 class="topic-title">How to Use Promises</h3>
+          <p class="topic-text">Promises can be used with the .then() and .catch() methods to handle the resolved value or any errors.</p>
+        </div>
+        <div class="topic">
+          <h3 class="topic-title">Chaining Promises</h3>
+          <p class="topic-text">Promises can be chained to run asynchronous operations in sequence.</p>
+        </div>
+        <div class="topic">
+          <h3 class="topic-title">Promise States</h3>
+          <p class="topic-text">A promise can be in one of three states: pending, fulfilled, or rejected.</p>
+        </div>
+        <div class="topic">
+          <h3 class="topic-title">Creating a Promise</h3>
+          <p class="topic-text">You can create a promise using the Promise constructor.</p>
+          <pre class="code-block">
+            <code class="code-content">
+const myPromise = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    const success = true; // Change to false to simulate an error
+    if (success) {
+      resolve('Promise resolved successfully!');
+    } else {
+      reject('Promise rejected with an error.');
+    }
+  }, 2000);
+});
+            </code>
+          </pre>
+        </div>
+        <div class="topic">
+          <h3 class="topic-title">Independent Promise</h3>
+          <p class="topic-text">Independent promises are promises that do not rely on the result of another promise.</p>
+          <pre class="code-block">
+            <code class="code-content">
+const independentPromise = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    const success = true; // Change to false to simulate an error
+    if (success) {
+      resolve('Independent promise resolved successfully!');
+    } else {
+      reject('Independent promise rejected with an error.');
+    }
+  }, 2000);
+});
+            </code>
+          </pre>
+        </div>
+        <div class="topic">
+          <h3 class="topic-title">Dependent Promises</h3>
+          <p class="topic-text">Dependent promises are promises that rely on the result of another promise.</p>
+          <pre class="code-block">
+            <code class="code-content">
+const dependentPromise = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    const success = true; // Change to false to simulate an error
+    if (success) {
+      resolve('Dependent promise resolved successfully!');
+    } else {
+      reject('Dependent promise rejected with an error.');
+    }
+  }, 2000);
+});
+            </code>
+          </pre>
+        </div>
+        <div class="topic">
+          <h3 class="topic-title">Promise Chaining</h3>
+          <p class="topic-text">Promise chaining is a technique where multiple promises are executed in sequence, with each promise waiting for the previous one to complete.</p>
+          <pre class="code-block">
+            <code class="code-content">
+const buyBike = () => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const success = Math.random() > 0.5; // Change to false to simulate an error
+      if (success) {
+        resolve('Bought a Royal Enfield Continental GT650!');
+      } else {
+        reject('Error: Buying bike failed.');
+      }
+    }, 2000);
+  });
+};
+
+const planTour = () => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      const success = Math.random() > 0.5; // Change to false to simulate an error
+      if (success) {
+        resolve(`Tour to Ladakh with Continental GT650!`);
+      } else {
+        reject(`Error: Tour Planning failed.`);
+      }
+    }, 2000);
+  });
+};
+
+const reachLocation = () => {
+  return new Promise((resolve, reject) => {
+    const success = Math.random() > 0.5; // Change to false to simulate an error
+    if(success){
+      resolve(`Reached Ladakh successfully!`);
+    } else {
+      reject(`Error: Reaching Ladakh failed.`);
+    }
+  });
+};
+
+const visitPangong = () => {
+  return new Promise((resolve, reject) => {
+    const success = Math.random() > 0.5; // Change to false to simulate an error
+    if(success){
+      resolve(`Visited Pangong Lake successfully!`);
+    } else {
+      reject(`Error: Visiting Pangong Lake failed.`);
+    }
+  });
+}
+
+buyBike().then(res => {
+  console.log(res);
+  return planTour();
+}).then(res => {
+  console.log(res);
+  return reachLocation();
+}).then(res => {
+  console.log(res);
+  return visitPangong();
+}).then(res => {
+  console.log(res);
+}).catch(err => {
+  console.error(err);
+});
+            </code>
+          </pre>
+        </div>
+      </section>
+      <section class="section">
+        <div class="topic">
+          <h2 class="section-subtitle">Using Async/Await</h2>
+          <p class="section-description">Async/await is syntactic sugar built on top of promises.</p>
+        </div>
+        <div class="topic">
+          <h3 class="topic-title">Promise Chaining by using Async/Await</h3>
+          <p class="topic-text">
+            <ul class="list-group">
+              <li class="list-item">Async/await allows you to write asynchronous code that looks synchronous, making it easier to read and maintain.</li>
+              <li class="list-item">It eliminates the need for chaining .then() calls and provides a more straightforward way to handle asynchronous operations.</li>
+              <li class="list-item">async functions always return a promise. If the function returns a value, the promise will be resolved with that value. If the function throws an error, the promise will be rejected with that error.</li>
+              <li class="list-item">async/await only works with promises.</li>
+            </ul>
+          </p>
+          <pre class="code-block">
+            <code class="code-content">
+  // using the above functions with async/await
+  const executeTourPlan = async () => {
+    try {
+      const bike = await buyBike();
+      console.log(bike);
+      const tour = await planTour();
+      console.log(tour);
+      const location = await reachLocation();
+      console.log(location);
+      const pangong = await visitPangong();
+      console.log(pangong);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  executeTourPlan();
+            </code>
+          </pre>
+        </div>
+      </section>
+    </main>
+    <footer class="main-footer">
+      <p class="footer-text">&copy; 2023 Promises and Async/Await</p>
+    </footer>
+  </div>
+  <button id="mode-toggle" class="mode-toggle-btn">☀</button>
+  <script src="script.js"></script>
+</body>
+</html>
