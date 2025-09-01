@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Keshav's Portfolio</title>
+  <style>
+    :root {
+      --bg-color: #ffffff;
+      --text-color: #222222;
+      --accent-color: #0077ff;
+      --card-bg: #f5f5f5;
+    }
+    body.dark {
+      --bg-color: #121212;
+      --text-color: #f5f5f5;
+      --accent-color: #4dabf7;
+      --card-bg: #1e1e1e;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    body {
+      background: var(--bg-color);
+      color: var(--text-color);
+      transition: background 0.3s, color 0.3s;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: var(--card-bg);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    header h1 {
+      font-size: 1.5rem;
+      color: var(--accent-color);
+    }
+    .toggle-btn {
+      background: var(--accent-color);
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    section {
+      padding: 2rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+    h2 {
+      margin-bottom: 1rem;
+      color: var(--accent-color);
+    }
+    .skills, .projects, .academics {
+      display: grid;
+      gap: 1rem;
+    }
+    .card {
+      background: var(--card-bg);
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: var(--card-bg);
+      margin-top: 2rem;
+    }
+    @media (min-width: 600px) {
+      .skills, .projects, .academics {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Keshav's Portfolio</h1>
+    <button class="toggle-btn" id="themeToggle">🌙 Dark Mode</button>
+  </header>
+
+  <section>
+    <h2>About Me</h2>
+    <p>Hi, I'm Keshav — a quick learner and problem-solving enthusiast. I build modern, responsive, and user-friendly web applications using the latest technologies.</p>
+  </section>
+
+  <section>
+    <h2>Skills</h2>
+    <div class="skills">
+      <div class="card">HTML, CSS, Bootstrap 5, TailwindCSS</div>
+      <div class="card">JavaScript, Node.js, Express.js</div>
+      <div class="card">MongoDB, React.js, Next.js</div>
+      <div class="card">Problem Solving & Quick Learning</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Projects</h2>
+    <div class="projects">
+      <div class="card">✅ To-Do App</div>
+      <div class="card">🌦 Weather App</div>
+      <div class="card">🛒 E-Commerce Platform</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Academics</h2>
+    <div class="academics">
+      <div class="card">10th - 2016</div>
+      <div class="card">12th - 2019</div>
+      <div class="card">Graduation - 2022</div>
+      <div class="card">Pursuing BCA (1st Year)</div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Keshav | Built with ❤️ using HTML, CSS & JS</p>
+  </footer>
+
+  <script>
+    const toggleBtn = document.getElementById('themeToggle');
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark');
+      if (document.body.classList.contains('dark')) {
+        toggleBtn.textContent = '☀️ Light Mode';
+      } else {
+        toggleBtn.textContent = '🌙 Dark Mode';
+      }
+    });
+  </script>
+</body>
+</html>

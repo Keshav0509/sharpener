@@ -35,7 +35,6 @@ form.addEventListener('submit', (e) => {
       displayExpenses(expense_obj);
     } else {
       renderUpdatedExpense(editId, expense_obj, expenses);
-
     }
     
     changeSubmitBtn(false);
