@@ -34,6 +34,7 @@ document.querySelector('form').addEventListener('submit', async (e) => {
     const newVegetable = await postData(uri, vegetable);
     vegetableList.push(newVegetable);
     displayVegetables(newVegetable);
+    updateVegetableCount(true);
     // console.log('total vegetables count:', totalVegetables);
   }
 
@@ -80,6 +81,7 @@ const deleteVegetable = async (tr, vegId) => {
     await deleteData(uri, vegId);
     vegetableList = vegetableList.filter(vegetable => vegetable._id !== vegId);
     tr.remove();
+    updateVegetableCount(false);
   } catch (error) {
     console.log(error);
   }
@@ -93,20 +95,49 @@ const deleteVegetable = async (tr, vegId) => {
 
 const buyVegetable = async (vegId, tr) => {
   try {
-    const qty = Number(tr.querySelector('#update-quantity').value);
+    const quantityInput = (tr.querySelector('#update-quantity'));
+    const qty = Number(quantityInput.value);
+    if(isNaN(qty) || qty <= 0){
+      alert('Please enter a valid quantity greater than 0.');
+      return;
+    }
+
     const idx = vegetableList.findIndex(vegetable => vegetable._id === vegId)
     if(idx !== -1){
       let vegetable = {...vegetableList[idx]};
+      if(qty > vegetable.quantity) {
+        alert('Insufficient quantity available.');
+        return;
+      };
+
       const newQuantity = vegetable.quantity - qty;
       let updatedVeg = {
         name: vegetable.name,
         price: vegetable.price,
         quantity: newQuantity
       } 
+
+      // backed update
       await putData(uri, vegId, updatedVeg);
+
+      // local update
+      vegetableList[idx] = {...updatedVeg, _id: vegId};
+
+      // UI update
+      const quantitySpan = tr.querySelector('.quantity');
+      quantitySpan.textContent = newQuantity;
+
+      // clear input
+      quantityInput.value = '';
     }
   } catch (error) {
     console.log(error);
   }
 }
 
+const updateVegetableCount = (bool) => {
+  const countSpan = document.querySelector('#vegetables-count');
+  let count = Number(countSpan.innerHTML);
+  count = !bool ? (count -1) : (count + 1);
+  countSpan.textContent = count;
+}
