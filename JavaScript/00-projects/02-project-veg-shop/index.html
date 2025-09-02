@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>02 - Project - Veg Shop</title>
+</head>
+<body>
+  <div>
+    <section>
+      <form>
+        <div>
+          <div>
+            <label for="name">Vegetable Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter Vegetable Name" required>
+          </div>
+          <div>
+            <label for="price">Price:</label>
+            <input type="number" id="price" name="price" placeholder="Enter Price" required>
+          </div>
+          <div>
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" name="quantity" placeholder="Enter quantity" required>
+          </div>
+          </div>
+          <button type="submit">Submit</button>
+        </div>
+      </form>
+    </section>
+    <section>
+      <div>
+
+      </div>
+      <div>
+        <h2>Vegetable List</h2>
+        <p>Total vegetables available: <span id="total-vegetables">0</span></p>
+        <table>
+          <thead>
+            <tr>
+              <th>Vegetable Name</th>
+              <th>Price</th>
+              <th>Quantity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Carrot</td>
+              <td><span>&#8377;</span><span class="price">1.00</span></td>
+              <td><span class="quantity">10</span><span>&nbsp;kg</span></td>
+              <td>
+                <input type="text" placeholder="Update Quantity">
+              </td>
+              <td>
+                <button>Update</button>
+                <button>Delete</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Potato</td>
+              <td><span>&#8377;</span><span class="price">50</span></td>
+              <td><span class="quantity">20</span><span>&nbsp;kg</span></td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

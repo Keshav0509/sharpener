@@ -1,4 +1,4 @@
-const uri = "https://crudcrud.com/api/c9aaddfdc752418aa5df09091bded680"
+const uri = "https://crudcrud.com/api/30e4417606504555bc750b1fe4f252e6"
 const appointmentData = "appointmentData";
 const form = document.querySelector('form');
 const ul = document.querySelector('ul');
@@ -29,8 +29,9 @@ async function handleFormSubmit(event) {
   
     const editId = sessionStorage.getItem('editId');
     if(!editId){
-      const data = await postData(uri, appointmentData, userDetails);
-      displayUserOnScreen(data);
+      const newData = await postData(uri, appointmentData, userDetails);
+      displayUserOnScreen(newData);
+      data.push(newData);
     }else{
       await updateUserDetails(editId, userDetails);
     }
@@ -46,12 +47,8 @@ function displayUserOnScreen(userDetails) {
   const ul = document.querySelector("ul");
   const li = document.createElement("li");
   li.id = userDetails._id;
-  li.className = 'list-group-item d-flex justify-content-between align-items-center';
-  li.appendChild(
-    document.createTextNode(
-      `${userDetails.username} - ${userDetails.email} - ${userDetails.phone}`
-    )
-  );
+  li.className = 'list-group-item d-flex align-item-center';
+  li.innerHTML = `<div class='col d-flex align-item-center'>${userDetails.username} - ${userDetails.email} - ${userDetails.phone} </div>`
   // add buttons to li;
   addFeaturesKeys(li, userDetails);
 
@@ -59,17 +56,24 @@ function displayUserOnScreen(userDetails) {
 }
 
 function addFeaturesKeys(li, user_obj){
+  const buttonContainer = document.createElement("div");
+  buttonContainer.className = 'col d-flex align-item-center justify-content-end';
+  const editDiv = document.createElement("div");
   const editBtn = document.createElement("button");
   editBtn.className = 'btn btn-warning btn-sm me-2';
   editBtn.appendChild(document.createTextNode("Edit"));
-  li.appendChild(editBtn);
+  editDiv.appendChild(editBtn)
+  buttonContainer.appendChild(editDiv);
   editBtn.addEventListener("click", ()=> editUser(user_obj));
-
+  
+  const delDiv = document.createElement("div");
   const deleteBtn = document.createElement("button");
   deleteBtn.className = 'btn btn-danger btn-sm';
   deleteBtn.appendChild(document.createTextNode("Delete"));
-  li.appendChild(deleteBtn);
+  delDiv.appendChild(deleteBtn)
+  buttonContainer.appendChild(delDiv);
 
+  li.appendChild(buttonContainer);
   console.log("user id:", user_obj._id);
   deleteBtn.addEventListener("click", () => deleteUser(li, user_obj._id));
 }

@@ -1,145 +1,395 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Keshav's Portfolio</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Keshav — Web Developer Portfolio</title>
+  <meta name="description" content="Keshav — Web developer portfolio. Building modern, responsive apps with React, Next.js, Node, and MongoDB." />
   <style>
+    /* ---------- Theme ---------- */
     :root {
-      --bg-color: #ffffff;
-      --text-color: #222222;
-      --accent-color: #0077ff;
-      --card-bg: #f5f5f5;
+      --bg: #0b1220;
+      --surface: #101a2e;
+      --text: #e9eef6;
+      --muted: #a3afc3;
+      --accent: #ff4d5a;         /* red */
+      --accent-2: #102443;       /* deep navy for secondary button */
+      --ring: rgba(255,77,90,.35);
+      --card: #0f1628;
+      --link: #d7deea;
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
     }
-    body.dark {
-      --bg-color: #121212;
-      --text-color: #f5f5f5;
-      --accent-color: #4dabf7;
-      --card-bg: #1e1e1e;
+    [data-theme="light"] {
+      --bg: #f7f9fc;
+      --surface: #ffffff;
+      --text: #0e1422;
+      --muted: #49546a;
+      --accent: #e63946;
+      --accent-2: #e9eef6;
+      --ring: rgba(230,57,70,.25);
+      --card: #ffffff;
+      --link: #0e1422;
+      --shadow: 0 10px 25px rgba(0,0,0,.08);
     }
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', sans-serif;
-    }
+
+    /* ---------- Reset ---------- */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
-      background: var(--bg-color);
-      color: var(--text-color);
-      transition: background 0.3s, color 0.3s;
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+      color: var(--text);
+      background: radial-gradient(1200px 800px at 110% -10%, rgba(255,77,90,.08), transparent 50%),
+                  radial-gradient(1000px 600px at 120% 110%, rgba(255,77,90,.06), transparent 40%),
+                  var(--bg);
+      line-height: 1.6;
     }
+    a { color: var(--link); text-decoration: none; }
+    img { display: block; max-width: 100%; height: auto; }
+
+    /* ---------- Layout ---------- */
+    .container { width: min(1200px, 92vw); margin-inline: auto; }
     header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 2rem;
-      background: var(--card-bg);
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: saturate(140%) blur(6px);
+      background: color-mix(in srgb, var(--bg) 85%, transparent);
+      border-bottom: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
     }
-    header h1 {
-      font-size: 1.5rem;
-      color: var(--accent-color);
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .9rem 0;
     }
-    .toggle-btn {
-      background: var(--accent-color);
-      color: white;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 5px;
+    .brand { display: flex; align-items: center; gap: .6rem; font-weight: 700; letter-spacing: .4px; }
+    .brand-dot {
+      width: 10px; height: 10px; border-radius: 999px; background: var(--accent);
+      box-shadow: 0 0 0 6px var(--ring);
+    }
+    .menu { display: flex; gap: 1.2rem; align-items: center; }
+    .menu a {
+      padding: .5rem .8rem; border-radius: .6rem; color: var(--muted);
+      transition: color .2s, background .2s, transform .2s;
+    }
+    .menu a:hover { color: var(--text); transform: translateY(-1px); }
+    .menu a.active { color: var(--text); background: color-mix(in srgb, var(--accent) 24%, transparent); }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+      border-radius: .8rem; padding: .7rem 1.1rem; font-weight: 600; border: 1px solid transparent;
+      transition: transform .15s ease, box-shadow .15s ease, background .2s, color .2s, border .2s;
       cursor: pointer;
     }
-    section {
-      padding: 2rem;
-      max-width: 1000px;
-      margin: auto;
+    .btn-ghost { background: var(--accent-2); color: #fff; border-color: color-mix(in srgb, var(--text) 8%, transparent); }
+    .btn-ghost:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+    .btn-accent { background: var(--accent); color: #fff; }
+    .btn-accent:hover { transform: translateY(-2px); box-shadow: 0 12px 30px var(--ring); }
+    .btn-outline {
+      background: transparent; color: var(--text); border-color: color-mix(in srgb, var(--text) 20%, transparent);
     }
-    h2 {
-      margin-bottom: 1rem;
-      color: var(--accent-color);
+    .btn-outline:hover { background: color-mix(in srgb, var(--text) 10%, transparent); }
+
+    .theme-toggle {
+      width: 40px; height: 40px; border-radius: 10px;
+      border: 1px solid color-mix(in srgb, var(--text) 15%, transparent);
+      background: color-mix(in srgb, var(--surface) 90%, transparent);
+      display: grid; place-items: center; color: var(--text);
     }
-    .skills, .projects, .academics {
-      display: grid;
-      gap: 1rem;
+
+    /* ---------- Hero ---------- */
+    .hero {
+      position: relative; isolation: isolate;
+      min-height: 92vh; display: grid; align-items: center;
+      padding: 2.5rem 0 3rem;
     }
+    .grid {
+      display: grid; gap: clamp(1.5rem, 3vw, 2.5rem);
+      grid-template-columns: 1.1fr .9fr;
+    }
+    @media (max-width: 980px) { .grid { grid-template-columns: 1fr; } }
+
+    .eyebrow { color: var(--muted); font-weight: 600; letter-spacing: .16em; text-transform: uppercase; font-size: .78rem; }
+    .title {
+      margin: .25rem 0 .5rem;
+      font-weight: 800; line-height: 1.05;
+      font-size: clamp(2.2rem, 4.6vw, 4rem);
+      text-wrap: balance;
+    }
+    .subtitle { color: var(--muted); font-size: clamp(1rem, 1.4vw, 1.1rem); max-width: 62ch; }
+    .cta-row { display: flex; gap: .9rem; margin-top: 1.2rem; flex-wrap: wrap; }
+
+    .social {
+      display: grid; gap: .5rem; margin-top: 1.4rem;
+      grid-template-columns: 1fr auto auto auto auto;
+      align-items: center;
+    }
+    .social span { color: var(--muted); font-weight: 600; letter-spacing: .1em; text-transform: uppercase; font-size: .75rem; }
+    .social a {
+      width: 38px; height: 38px; display: grid; place-items: center; border-radius: 10px;
+      border: 1px solid color-mix(in srgb, var(--text) 15%, transparent);
+      background: color-mix(in srgb, var(--surface) 92%, transparent);
+      color: var(--text);
+    }
+    .social a:hover { background: color-mix(in srgb, var(--accent) 12%, transparent); }
+
+    .portrait {
+      position: relative; display: grid; place-items: center;
+      padding: 1rem; aspect-ratio: 4/5;
+      border-radius: 1.4rem;
+      background: linear-gradient(160deg, color-mix(in srgb, var(--surface) 88%, transparent), transparent 70%), var(--card);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .portrait::before {
+      content: ""; position: absolute; width: 560px; height: 560px; border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, var(--accent), transparent 60%);
+      top: -35%; right: -35%; filter: blur(20px); opacity: .45; z-index: 0;
+    }
+    .portrait::after {
+      content: ""; position: absolute; inset: 12px; border-radius: 1rem;
+      border: 1px dashed color-mix(in srgb, var(--text) 18%, transparent);
+      mask: radial-gradient(transparent 0 96%, #000 97%);
+      pointer-events: none;
+    }
+    .portrait img {
+      position: relative; z-index: 1; width: 100%; height: 100%; object-fit: cover; object-position: center;
+      filter: contrast(1.05) saturate(1.05);
+    }
+    .portrait .placeholder {
+      position: relative; z-index: 1; color: var(--muted); text-align: center; padding: 2rem;
+      border: 1px dashed color-mix(in srgb, var(--text) 20%, transparent); border-radius: 1rem;
+    }
+
+    /* dotted motif */
+    .dots {
+      position: absolute; top: 60px; left: -40px; width: 180px; height: 140px; opacity: .4; z-index: -1;
+      background-image: radial-gradient(color-mix(in srgb, var(--accent) 70%, var(--bg)) 1.2px, transparent 1.2px);
+      background-size: 12px 12px;
+    }
+
+    /* ---------- Section index (01–04) ---------- */
+    .index {
+      position: fixed; right: 22px; top: 50%; transform: translateY(-50%); z-index: 40;
+      display: grid; gap: .4rem;
+    }
+    .index a {
+      width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center;
+      color: var(--muted); font-weight: 700; letter-spacing: .02em;
+      border: 1px solid color-mix(in srgb, var(--text) 14%, transparent);
+      background: color-mix(in srgb, var(--surface) 92%, transparent);
+      transition: background .2s, color .2s, transform .15s, border .2s;
+    }
+    .index a:hover { transform: translateY(-2px); }
+    .index a.active {
+      color: #fff; background: var(--accent); border-color: transparent;
+      box-shadow: 0 10px 22px var(--ring);
+    }
+    @media (max-width: 980px) { .index { display: none; } }
+
+    /* ---------- Sections ---------- */
+    section { padding: 4rem 0; }
+    .cards {
+      display: grid; gap: 1rem;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+    }
+    @media (max-width: 980px) { .cards { grid-template-columns: 1fr; } }
     .card {
-      background: var(--card-bg);
-      padding: 1rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      transition: transform 0.2s;
+      background: var(--surface); border: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
+      border-radius: 1rem; padding: 1.1rem; box-shadow: var(--shadow);
+      transition: transform .15s ease;
     }
-    .card:hover {
-      transform: translateY(-3px);
+    .card:hover { transform: translateY(-4px); }
+    .card h4 { margin: .1rem 0 .4rem; }
+    .pill {
+      display: inline-block; padding: .28rem .6rem; border-radius: 999px;
+      font-size: .75rem; color: #fff; background: color-mix(in srgb, var(--accent) 70%, #000 0%);
     }
+
     footer {
-      text-align: center;
-      padding: 1rem;
-      background: var(--card-bg);
-      margin-top: 2rem;
-    }
-    @media (min-width: 600px) {
-      .skills, .projects, .academics {
-        grid-template-columns: repeat(2, 1fr);
-      }
+      padding: 2rem 0; border-top: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
+      color: var(--muted); text-align: center;
     }
   </style>
 </head>
 <body>
+  <!-- Section index 01–04 -->
+  <nav class="index" aria-label="Section index">
+    <a href="#hero" id="i-hero">01</a>
+    <a href="#about" id="i-about">02</a>
+    <a href="#portfolio" id="i-portfolio">03</a>
+    <a href="#contact" id="i-contact">04</a>
+  </nav>
+
+  <!-- Header -->
   <header>
-    <h1>Keshav's Portfolio</h1>
-    <button class="toggle-btn" id="themeToggle">🌙 Dark Mode</button>
+    <div class="container nav">
+      <div class="brand">
+        <span class="brand-dot" aria-hidden="true"></span>
+        <span>Keshav</span>
+      </div>
+      <nav class="menu" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#portfolio" class="active">Portfolio</a>
+        <a href="#contact">Contact</a>
+        <a href="#contact" class="btn btn-ghost">Get Started</a>
+        <button id="themeBtn" class="theme-toggle" aria-label="Toggle theme" aria-pressed="true" title="Toggle light/dark">
+          <!-- Sun/Moon icon injected via JS -->
+          <svg id="icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M21.64 13a9 9 0 1 1-10.63-10.6 1 1 0 0 1 1.11 1.45A7 7 0 1 0 20.2 11.9a1 1 0 0 1 1.44 1.1z"/>
+          </svg>
+        </button>
+      </nav>
+    </div>
   </header>
 
-  <section>
-    <h2>About Me</h2>
-    <p>Hi, I'm Keshav — a quick learner and problem-solving enthusiast. I build modern, responsive, and user-friendly web applications using the latest technologies.</p>
-  </section>
+  <!-- Hero -->
+  <main id="hero" class="hero">
+    <div class="dots" aria-hidden="true"></div>
+    <div class="container grid">
+      <div>
+        <div class="eyebrow">Hello, I am</div>
+        <h1 class="title">Keshav</h1>
+        <p class="subtitle">
+          A web developer who loves crafting fast, responsive, and elegant experiences. Expert in problem‑solving and a quick learner across
+          HTML, CSS, Bootstrap 5, TailwindCSS, JavaScript, Node.js, Express.js, MongoDB, React.js, and Next.js.
+        </p>
 
-  <section>
-    <h2>Skills</h2>
-    <div class="skills">
-      <div class="card">HTML, CSS, Bootstrap 5, TailwindCSS</div>
-      <div class="card">JavaScript, Node.js, Express.js</div>
-      <div class="card">MongoDB, React.js, Next.js</div>
-      <div class="card">Problem Solving & Quick Learning</div>
+        <div class="social" aria-label="Find me on">
+          <span>Find me on</span>
+          <a href="#" aria-label="Behance" title="Behance">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.25 8.5H14V7h4.25v1.5zM9.5 7H4v10h5.65c2.53 0 3.85-1.18 3.85-3.13 0-1.31-.72-2.24-1.79-2.59 0 0 1.45-.47 1.45-2.53C13.16 7.87 11.8 7 9.5 7zM7 8.5h2.34c.97 0 1.56.38 1.56 1.2 0 .9-.64 1.3-1.67 1.3H7V8.5zm2.68 6H7V12h2.66c1.11 0 1.77.41 1.77 1.26 0 .88-.62 1.24-1.75 1.24zM20 12.81c0-2.09-1.33-3.9-3.85-3.9-2.38 0-3.9 1.66-3.9 3.93S13.8 16.8 16.23 16.8c1.42 0 2.5-.54 3.2-1.6l-1.42-.82c-.3.47-.9.9-1.78.9-1.02 0-1.7-.57-1.9-1.48H20c.02-.22.03-.45.03-.69zm-6.16-.81c.2-.85.9-1.46 1.9-1.46 1.06 0 1.72.62 1.83 1.46h-3.73z"/></svg>
+          </a>
+          <a href="#" aria-label="Instagram" title="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm0 2h10c1.7 0 3 1.3 3 3v10c0 1.7-1.3 3-3 3H7c-1.7 0-3-1.3-3-3V7c0-1.7 1.3-3 3-3zm10 1.8a1 1 0 100 2 1 1 0 000-2zM12 7.5A4.5 4.5 0 1012 16.5 4.5 4.5 0 0012 7.5zm0 2a2.5 2.5 0 110 5 2.5 2.5 0 010-5z"/></svg>
+          </a>
+          <a href="#" aria-label="LinkedIn" title="LinkedIn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.94 7.5A1.94 1.94 0 115 5.56 1.94 1.94 0 016.94 7.5zM5.5 9h2.9v9.5H5.5V9zM10.3 9h2.78v1.3h.04c.39-.73 1.36-1.5 2.8-1.5 2.99 0 3.54 1.97 3.54 4.53v5.17h-2.9v-4.6c0-1.1-.02-2.52-1.53-2.52-1.53 0-1.77 1.2-1.77 2.45v4.67H10.3V9z"/></svg>
+          </a>
+          <a href="#" aria-label="Pinterest" title="Pinterest">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.2 2C6.98 2 4 5.46 4 9.34c0 1.79.97 4.01 2.52 4.71.24.11.37.06.43-.17.04-.18.26-1.05.35-1.46.03-.12.01-.22-.08-.34-.51-.62-.92-1.77-.92-2.83 0-2.74 2.06-5.39 5.58-5.39 3.04 0 5.18 2.07 5.18 5.03 0 3.2-1.61 5.42-3.71 5.42-1.16 0-2.03-.96-1.75-2.13.33-1.41.97-2.93.97-3.95 0-.91-.49-1.67-1.5-1.67-1.19 0-2.15 1.23-2.15 2.87 0 1.05.35 1.76.35 1.76s-1.2 5.09-1.42 5.98c-.42 1.76-.06 3.91-.03 4.12l.02.06h.08c.27-.4 1.86-2.75 2.17-4.2.16-.75.83-3.14.83-3.14.41.77 1.62 1.45 2.9 1.45 3.82 0 6.41-3.44 6.41-7.54C20.93 5.21 17.38 2 12.2 2z"/></svg>
+          </a>
+        </div>
+
+        <div class="cta-row">
+          <a href="#contact" class="btn btn-accent">Hire Me</a>
+          <a href="#portfolio" class="btn btn-outline">Portfolio</a>
+        </div>
+      </div>
+
+      <div class="portrait" aria-label="Portrait">
+        <!-- Replace src with your photo -->
+        <img src="" alt="Portrait of Keshav" onerror="this.replaceWith(document.getElementById('ph'));">
+        <div id="ph" class="placeholder">
+          <strong>No portrait yet</strong><br/> Drop your photo by setting the img src above.
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- About -->
+  <section id="about">
+    <div class="container">
+      <h2>About</h2>
+      <p>
+        I’m Keshav — a problem‑solving, quick‑learning developer focused on modern web apps. I enjoy building accessible,
+        clean UIs and scalable backends. When I’m not shipping features, I’m refining performance and developer ergonomics.
+      </p>
+      <div class="cards" style="margin-top:1rem">
+        <div class="card">
+          <span class="pill">Skills</span>
+          <h4>Frontend</h4>
+          <p>HTML, CSS, Bootstrap 5, TailwindCSS, JavaScript, React.js, Next.js</p>
+        </div>
+        <div class="card">
+          <span class="pill">Skills</span>
+          <h4>Backend</h4>
+          <p>Node.js, Express.js, MongoDB, REST APIs</p>
+        </div>
+        <div class="card">
+          <span class="pill">Academics</span>
+          <h4>Education</h4>
+          <p>10th (2016), 12th (2019), Graduation (2022), Pursuing BCA (1st year)</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section>
-    <h2>Projects</h2>
-    <div class="projects">
-      <div class="card">✅ To-Do App</div>
-      <div class="card">🌦 Weather App</div>
-      <div class="card">🛒 E-Commerce Platform</div>
+  <!-- Portfolio -->
+  <section id="portfolio">
+    <div class="container">
+      <h2>Portfolio</h2>
+      <p>Selected projects that blend usability, performance, and modern patterns.</p>
+      <div class="cards" style="margin-top:1rem">
+        <div class="card">
+          <span class="pill">App</span>
+          <h4>To‑Do</h4>
+          <p>Clean UI, keyboard shortcuts, persistent storage, and filters for productivity.</p>
+        </div>
+        <div class="card">
+          <span class="pill">App</span>
+          <h4>Weather</h4>
+          <p>Real‑time forecasts, geolocation, and responsive layout with theming.</p>
+        </div>
+        <div class="card">
+          <span class="pill">Platform</span>
+          <h4>E‑Commerce</h4>
+          <p>Product browsing, cart/checkout flow, and secure API with Node/Express.</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section>
-    <h2>Academics</h2>
-    <div class="academics">
-      <div class="card">10th - 2016</div>
-      <div class="card">12th - 2019</div>
-      <div class="card">Graduation - 2022</div>
-      <div class="card">Pursuing BCA (1st Year)</div>
+  <!-- Contact -->
+  <section id="contact">
+    <div class="container">
+      <h2>Contact</h2>
+      <p>Want to collaborate or hire me? Reach out and I’ll respond quickly.</p>
+      <div class="cards" style="margin-top:1rem">
+        <div class="card">
+          <h4>Get in touch</h4>
+          <p><strong>Email:</strong> your.email@example.com</p>
+          <p><strong>Location:</strong> Gadarpur, Uttarakhand, India</p>
+          <div class="cta-row">
+            <a class="btn btn-accent" href="mailto:your.email@example.com">Hire Me</a>
+            <a class="btn btn-outline" href="#portfolio">View Work</a>
+          </div>
+        </div>
+        <div class="card">
+          <h4>Social</h4>
+          <p>Add your social links in the hero “Find me on” icons.</p>
+        </div>
+        <div class="card">
+          <h4>Availability</h4>
+          <p>Open to freelance and full‑time roles. Remote‑friendly.</p>
+        </div>
+      </div>
     </div>
   </section>
 
   <footer>
-    <p>© 2025 Keshav | Built with ❤️ using HTML, CSS & JS</p>
+    <div class="container">© 2025 Keshav — Built with ❤️ using HTML, CSS & JS</div>
   </footer>
 
   <script>
-    const toggleBtn = document.getElementById('themeToggle');
-    toggleBtn.addEventListener('click', () => {
-      document.body.classList.toggle('dark');
-      if (document.body.classList.contains('dark')) {
-        toggleBtn.textContent = '☀️ Light Mode';
-      } else {
-        toggleBtn.textContent = '🌙 Dark Mode';
-      }
+    // Theme persistence
+    const root = document.documentElement;
+    const themeBtn = document.getElementById('themeBtn');
+    const icon = document.getElementById('icon');
+
+    function setTheme(mode) {
+      root.setAttribute('data-theme', mode);
+      localStorage.setItem('theme', mode);
+      themeBtn.setAttribute('aria-pressed', mode === 'dark' ? 'true' : 'false');
+      icon.innerHTML = mode === 'dark'
+        ? '<path d="M21.64 13a9 9 0 1 1-10.63-10.6 1 1 0 0 1 1.11 1.45A7 7 0 1 0 20.2 11.9a1 1 0 0 1 1.44 1.1z"/>'
+        : '<path d="M6.76 4.84l-1.8-1.79L3.17 4.84l1.79 1.8 1.8-1.8zM12 4a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0V5a1 1 0 0 1 1-1zm6.06-.79l1.8 1.79-1.8 1.8-1.79-1.8 1.79-1.79zM20 11a1 1 0 1 1 0 2h-2a1 1 0 1 1 0-2h2zM4 11a1 1 0 1 1 0 2H2a1 1 0 1 1 0-2h2zm2.76 8.16l-1.8 1.79-1.79-1.79 1.79-1.8 1.8 1.8zM13 17a1 1 0 1 1-2 0v-2a1 1 0 1 1 2 0v2zm7.06.79l-1.79 1.8-1.8-1.8 1.8-1.79 1.79 1.79zM12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12z"/>';
+    }
+
+    const preferred = localStorage.getItem('theme') ||
+      (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    setTheme(preferred);
+
+    themeBtn.addEventListener('click', () => {
+      setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
     });
-  </script>
-</body>
-</html>
+
+    // Section observation to highlight nav and index
+    const sections = ['hero','about','portfolio','contact'];
+    const nav
