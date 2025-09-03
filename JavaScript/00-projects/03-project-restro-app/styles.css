@@ -1,0 +1,62 @@
+body {
+  background-color: #f8f9fa;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.nav-link {
+  font-size: 1.1rem;
+}
+
+.card {
+  border-radius: 10px;
+}
+
+.form-control, .form-select {
+  border-radius: 5px;
+}
+
+.btn-primary {
+  padding: 10px 20px;
+  font-size: 1.1rem;
+}
+
+.card-header {
+  background-color: #e9ecef;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.order-details {
+  font-size: 0.95rem;
+}
+
+/* Ensure content is not hidden behind fixed footer */
+main {
+  padding-bottom: 60px; /* Adjust based on footer height */
+}
+
+/* Fix footer to bottom */
+footer {
+  width: 100%;
+  z-index: 1000;
+}
+
+/* Fix navbar to top */
+header.fixed-top {
+  z-index: 1000;
+}
+
+/* Style for delete buttons with icon */
+.delete-btn {
+  font-size: 0.85rem;
+  padding: 5px;
+  line-height: 1;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
