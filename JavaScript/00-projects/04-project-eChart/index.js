@@ -34,6 +34,7 @@ document.getElementById('product-form').addEventListener('submit', async (event)
     listProducts.push(newProduct);
     handleDisplayProduct(newProduct);
     calculateTotalValue(newProduct, true);
+    handlePopupForm(false);
     event.target.reset();
   } catch (error) {
     console.log(error);
@@ -72,3 +73,25 @@ const handleDeleteProduct = async (tr, productId) => {
     console.log(error);
   }
 }
+
+
+
+const addProductBtn = document.getElementById('add-product');
+const closeFormBtn = document.getElementById('close-overlay');
+
+addProductBtn.addEventListener('click', () => handlePopupForm());
+closeFormBtn.addEventListener('click', () => handlePopupForm());
+
+const handlePopupForm = () => {
+  const form = document.querySelector('#form-section');
+  const overlay = document.querySelector('#customOverlay');
+
+  if (overlay.classList.contains('hidden')) {
+    overlay.classList.remove('hidden');
+    if (!overlay.contains(form)) {
+      overlay.appendChild(form);
+    }
+  } else {
+    overlay.classList.add('hidden');
+  }
+};

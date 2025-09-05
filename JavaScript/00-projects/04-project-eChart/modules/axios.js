@@ -1,4 +1,4 @@
-const endPointId = '8c45a05a07d0433d9de807eb382cc387';
+const endPointId = 'af7875cf3d0b417aa59645e44bd21b08';
 export const uri = `https://crudcrud.com/api/${endPointId}/products`;
 
 export const getProducts = async (uri) => {
