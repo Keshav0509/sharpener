@@ -1,4 +1,3 @@
-
 export const calculateTotalValue = (product, bool) => {
   const totalValueElem = document.getElementById('total-products-value');
   const productCountElem = document.getElementById('total-products');
@@ -13,4 +12,11 @@ export const calculateTotalValue = (product, bool) => {
   }
   totalValueElem.innerText = totalValue;
   productCountElem.innerText = productCount;
+}
+
+export const calculateTotalValueAndProducts = (listProducts) => {
+  const totalValueElem = document.getElementById('total-products-value');
+  const productCountElem = document.getElementById('total-products');
+  totalValueElem.innerText = listProducts.reduce((sum, product) => sum + Number(product.price), 0);
+  productCountElem.innerText = listProducts.length;
 }

@@ -5,7 +5,10 @@ import {
   postProducts,
   deleteProduct
 } from './modules/axios.js'; 
-import { calculateTotalValue } from './modules/utils.js';
+import { 
+  calculateTotalValue, 
+  calculateTotalValueAndProducts 
+} from './modules/utils.js';
 
 let listProducts = [];
 
@@ -13,12 +16,35 @@ const handleLoadProducts = async () => {
   try {
     listProducts = await getProducts(uri); 
     listProducts.forEach(product => handleDisplayProduct(product));
+    calculateTotalValueAndProducts(listProducts);
   } catch (error) {
     console.log(error);
   }
 }
 
 window.addEventListener('DOMContentLoaded', handleLoadProducts);
+// form popup feature...
+const addProductBtn = document.getElementById('add-product');
+const closeFormBtn = document.getElementById('close-overlay');
+
+addProductBtn.addEventListener('click', () => handlePopupForm());
+closeFormBtn.addEventListener('click', () => handlePopupForm());
+
+const handlePopupForm = () => {
+  const form = document.querySelector('#form-section');
+  const overlay = document.querySelector('#customOverlay');
+
+  if (overlay.classList.contains('hidden')) {
+    overlay.classList.remove('hidden');
+    if (!overlay.contains(form)) {
+      overlay.appendChild(form);
+    }
+  } else {
+    overlay.classList.add('hidden');
+  }
+};
+
+// handle form submission..
 document.getElementById('product-form').addEventListener('submit', async (event) => {
   event.preventDefault();
   try {
@@ -73,25 +99,3 @@ const handleDeleteProduct = async (tr, productId) => {
     console.log(error);
   }
 }
-
-
-
-const addProductBtn = document.getElementById('add-product');
-const closeFormBtn = document.getElementById('close-overlay');
-
-addProductBtn.addEventListener('click', () => handlePopupForm());
-closeFormBtn.addEventListener('click', () => handlePopupForm());
-
-const handlePopupForm = () => {
-  const form = document.querySelector('#form-section');
-  const overlay = document.querySelector('#customOverlay');
-
-  if (overlay.classList.contains('hidden')) {
-    overlay.classList.remove('hidden');
-    if (!overlay.contains(form)) {
-      overlay.appendChild(form);
-    }
-  } else {
-    overlay.classList.add('hidden');
-  }
-};
